@@ -1,0 +1,40 @@
+[
+  {
+    "StockCertid": "MSFT_890",
+    "StockSymbol":"MSFT",
+    "NoofStocks":100,
+    "OrderType" :"Sell",
+    "Amount": "10000",
+    "TradeAccount":1234
+
+  },
+  {
+    "StockCertid": "MSFT_890",
+    "StockSymbol":"MSFT",
+    "NoofStocks":100,
+    "OrderType" :"Buy",
+    "Amount": "10000",
+    "TradeAccount":4567
+  },
+  {
+    "StockCertid": "NDAQ_120",
+    "StockSymbol":"NDAQ",
+    "NoofStocks":100,
+    "OrderType" :"Sell",
+    "Amount": "80000",
+    "TradeAccount":1234
+
+  },
+  {
+    "StockCertid": "NDAQ_120",
+    "StockSymbol":"NDAQ",
+    "NoofStocks":100,
+    "OrderType" :"Buy",
+    "Amount": "80000",
+    "TradeAccount":4567
+  }
+
+
+
+  
+]
