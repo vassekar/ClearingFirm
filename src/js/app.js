@@ -28,10 +28,10 @@ App = {
     } else {
       // If no injected web3 instance is detected, fall back to Ganache
 
-      var ganache = require("ganache-cli");
-      App.web3.setProvider(ganache.provider());
+      //var ganache = require("ganache-cli");
+     // App.web3.setProvider(ganache.provider());
 
-      //App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+     App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
     }
 
    
@@ -57,7 +57,7 @@ App = {
 
       //return ClearingFirmInstance.addTradestoClear(1234,"NDAQ",100,1000,1);
      
-      return ClearingFirmInstance.getTradeCount();
+     return ClearingFirmInstance.getTradeCount();
       /*if(j>0)
 
         {
@@ -79,10 +79,10 @@ App = {
         {
           for(k=0;k<j; k++)
            {
-            var (a,b,c) = ClearingFirmInstance.getTrade(k);    
-            alert(a.toNumber());
-            alert(b);
-            alert(c);
+            var a = ClearingFirmInstance.getTrade(k);    
+            alert(a[0].toNumber());
+            //alert(b);
+            //alert(c);
            }
       
          }
