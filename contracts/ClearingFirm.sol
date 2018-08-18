@@ -10,7 +10,9 @@ contract ClearingFirm
   
 address owner;
 
-  /* Trades are already happened. matching and clearing is done by this contract */
+  /* Trades are already happened. matching and clearing is done by this contract. Trade struct represents trade attributes */
+
+
 struct Trade
 {
 uint tradeId;
@@ -19,8 +21,10 @@ uint status;
 uint amount;
 uint noofstocks;
 string stockname;
+uint AccountNumber;
 }
 
+// Trade account -account number and balance
 struct TradeAccount
 {
 uint accountNumber;
@@ -35,19 +39,17 @@ TradeAccount[4] public TradeAccounts;
 uint nextTradeId=0;
 uint nextTradeAccountId =0;
 
-//Clearing firm creator is the only can execute deposit and withdraw from trading accounts
-/*function Constructor () public {
-    owner = msg.sender;
-  }*/
 
 
+// Create TradeAccounts
 function setTradeAccounts() public returns (uint AccountId)
-
 {
  TradeAccount  storage _tradeAccount = TradeAccounts[nextTradeAccountId];
  _tradeAccount.accountNumber = 10000 + nextTradeAccountId;
- _tradeAccount.balance = 0; 
+ //set the initial deposit amount as 100,000 dollars
+ _tradeAccount.balance = 100000; 
  AccountId=_tradeAccount.accountNumber;
+ nextTradeAccountId ++;
  return AccountId;
 }
 
@@ -57,6 +59,7 @@ function addTradestoClear(uint _AccountNmber,string _StockName, uint _NoofStocks
         public returns (uint Id)
 {
  Trade storage _trade = Trades[nextTradeId];
+ _trade.AccountNumber=_AccountNmber;
 _trade.tradeId=nextTradeId;
 _trade.stockname=_StockName;
 _trade.noofstocks=_NoofStocks;
@@ -70,26 +73,38 @@ _trade.amount= _Amount;
 }
       
 
-function ClearTrade(uint buyerAccountId, uint sellerAccountId, uint8 buytradeId,uint8 selltradeId, uint Amount) public payable returns(bool) 
+function ClearTrade(uint buyerAccountId, uint sellerAccountId, uint buytradeId,uint selltradeId, uint Amount) public payable returns(bool) 
 {
-
 
 Trades[buytradeId].status = 1;
 Trades[selltradeId].status = 1;
 
-//b.withdraw(Amount);
-//a.deposit(Amount); 
+for(var i=0; i<nextTradeAccountId; i++)
+{
+ TradeAccount  storage _tradeAccount = TradeAccounts[i];
 
+if (_tradeAccount.accountNumber==buyerAccountId)
+{
+//Call withdraw
+_tradeAccount.balance-= Amount;
+}
+
+if (_tradeAccount.accountNumber==sellerAccountId)
+{
+//Call deposit
+_tradeAccount.balance+=Amount;
+}
+
+}
 return true;
-
 }
 
 
 //get all Trade fields
-  function getTrade(uint id) public view returns (uint,uint,uint){
+  function getTrade(uint id) public view returns (uint,uint,uint,string){
 
    Trade storage t = Trades[id];
-   return (t.tradeId, t.status, t.amount);
+   return (t.tradeId, t.status, t.amount,t.stockname);
   }
 
  //Get the trade counts to traverse in GUI
@@ -98,5 +113,23 @@ return true;
    return nextTradeId;
 
   }
+
+//Get the balance of the tradeaccounts by accountID
+
+   function  getBalance(uint AccountID) public view returns(uint Amount)
+    {
+        
+        for(var i=0; i<nextTradeAccountId; i++)
+        {
+        TradeAccount  storage _tradeAccount = TradeAccounts[i];
+
+        if (_tradeAccount.accountNumber==AccountID)
+        {
+          return _tradeAccount.balance;
+
+        }
+        }
+    }
+
 
 }

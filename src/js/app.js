@@ -29,12 +29,10 @@ App = {
       // If no injected web3 instance is detected, fall back to Ganache
 
       //var ganache = require("ganache-cli");
-     // App.web3.setProvider(ganache.provider());
+      // App.web3.setProvider(ganache.provider());
 
-     App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
     }
-
-   
     web3 = new Web3(App.web3Provider);
 
     return App.initContract();
@@ -50,96 +48,58 @@ App = {
       // Set the provider for our contract
       App.contracts.ClearingFirm.setProvider(App.web3Provider);
 
+      var i;
+
       App.contracts.ClearingFirm.deployed().then(function (instance) {
-       
-      console.log(instance);
-      ClearingFirmInstance = instance;
 
-      //return ClearingFirmInstance.addTradestoClear(1234,"NDAQ",100,1000,1);
-     
-     return ClearingFirmInstance.getTradeCount();
-      /*if(j>0)
+        console.log(instance);
+        ClearingFirmInstance = instance;
 
-        {
-         for(j=0;j<i; j++)
-          {
-           v = ClearingFirmInstance.getTrade(j).call();    
+        //return ClearingFirmInstance.addTradestoClear(1234,"NDAQ",100,1000,1);
 
-    
-          }
-     
-        }*/
+        return ClearingFirmInstance.getTradeCount();
 
-      }).then(function(result) {
+      }).then(function (result) {
         // If this callback is called, the transaction was successfully processed.
+       // alert("Transaction successful!");
+        i = result.toNumber();
+       // alert(i);
+        if (i > 0) {
+          for (j = 0; j < i; j++) {
 
-        alert("Transaction successful!" + result.toNumber());
-        var j = result.toNumber();
+            ClearingFirmInstance.getTrade(j).then(trade => {
+             // alert(trade[0]);
+              //alert(trade[1]);
 
-        {
-          for(k=0;k<j; k++)
-           {
-            var a = ClearingFirmInstance.getTrade(k);    
-            alert(a[0].toNumber());
-            //alert(b);
-            //alert(c);
-           }
-      
-         }
+            });
+          }
+        }
 
-      }).catch(function(e) {
-       alert("Error" + e.message);
-      })
-     
-     return; 
-    });
+      }).catch(function (e) {
+        alert("Error" + e.message);
+      });
 
-        return App.bindEvents();
-    },
+     });
 
-      bindEvents: function () {
-
-        const button = document.getElementById('button_add');
-        button.addEventListener('click','addTrades();');
-
-        //  $(document).on('click', '.button_add', App.addTrades);
-      },
-
-
-      addTrades: function (event) {
-        alert("I am here");
-        event.preventDefault();
-
-      
-        var OrderType = $('OrderType').val();
-        var StockName = $('StockSymbol').val();
-        var Amount = parseInt($('Amount').val());
-        var NoofStocks = parseInt($('NoofStocks').val());
-        var TradeId;
-        var ClearingFirmInstance;
-
-
-          App.contracts.ClearingFirm.deployed().then(function (instance) {
-            ClearingFirmInstance = instance;
-
-            // Add Trades to the clearing account
-
-            TradeId = ClearingFirmInstance.addtradestoClear()
-
-            return TradeId;
-          }).then(function (result) {
-            return result;
-          }).catch(function (err) {
-            console.log(err.message);
-          });
-     },
+    return;
+  },
 
 };
 
-  $(function() {
+  $(function () {
     $(window).load(function () {
       App.init();
     });
-
+  
   });
 
+
+
+  $(document).ready(function()
+  {
+  $("button_add").click(function() {
+    
+   var OrderType =document.getElementById('OrderType').value;
+       
+    });
+  });

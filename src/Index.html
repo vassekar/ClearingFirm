@@ -4,10 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Clearing Firm Application</title>
 </head>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+
+<script>
+    $(document).ready(function()
+    {
+    $("button_add").click(function() {
+  
+      $("button_add").text= "add";
+      });
+    });
+  </script>
+
 <body>
+  <form id="formIndex"  >
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -59,20 +78,19 @@
     <tr> <td><label for=”name” class=”col-lg-2 control-label”> No of Stocks  </label>
     <input id=”NoofStocks” type=”text”> </td></tr>
     
-    <tr> <td><label for=”name” class=”col-lg-2 control-label”> Amount      </label>
+    <tr> <td><label for=”name” class=”col-lg-2 control-label”> Amount  </label>
     <input id=”Amount” type=”text”> </td></tr>
+
+    <tr> <td><label for=”name” class=”col-lg-2 control-label”> TradingAccount </label>
+      <input id=”Account” type=”text”> </td></tr>
+
        <tr> <td><button id=”button_add” >Add Trades</button> </td></tr>
 
   </table>
 
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/web3.min.js"></script>
-    <script src="js/truffle-contract.js"></script>
-    <script src="js/app.js"></script>
+
+  </form>
   </body>
 </html>

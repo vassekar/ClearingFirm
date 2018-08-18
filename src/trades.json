@@ -20,7 +20,7 @@
     "StockCertid": "NDAQ_120",
     "StockSymbol":"NDAQ",
     "NoofStocks":100,
-    "OrderType" :"Sell",
+    "OrderType" :"Buy",
     "Amount": "80000",
     "TradeAccount":1234
 
@@ -29,7 +29,7 @@
     "StockCertid": "NDAQ_120",
     "StockSymbol":"NDAQ",
     "NoofStocks":100,
-    "OrderType" :"Buy",
+    "OrderType" :"sell",
     "Amount": "80000",
     "TradeAccount":4567
   }
