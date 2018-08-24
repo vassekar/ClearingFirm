@@ -3,18 +3,19 @@ pragma solidity ^0.4.17;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/ClearingFirm.sol";
+import "../contracts/TradingAccount.sol";
 
 contract TestClearingFirm {
   ClearingFirm clearingFirm = ClearingFirm(DeployedAddresses.ClearingFirm());
+  //TradingAccount tradingAccount = TradeAccount(DeployedAddresses.TradeAccount());
 
+address[] public trdAccounts;
 
 function testAddTtrades() public {
 
  uint returnedId = clearingFirm.addTradestoClear(1234,"NDAQ",100,10000,1);
 
- //uint returnedId = clearingFirm.getTradecount();
-
-  uint expected = 0;
+ uint expected = 0;
 
   Assert.equal(returnedId, expected, "Clearing trade id is 0.");
 }
@@ -30,6 +31,8 @@ Assert.equal(status, 0, "Clearing trade status  is 0.");
 Assert.equal(stockName, "NDAQ", "Clearing trade stock is  NDAQ."); 
 }
 
+
+//test Clear trade functionality
 function  testClearTrade() public {
 
 //Add two Trading accounts and get the account ids
@@ -52,6 +55,28 @@ uint sellerBalance = clearingFirm.getBalance(sellerAccountId);
   Assert.equal(buyerBalance, 90000, "buyer balance is 90,000.");
   Assert.equal(sellerBalance, 110000, "buyer balance is 110,000.");
 }
+
+
+//Test Balance method.
+
+function testGetTradingAccountBalance() public {
+
+uint tradeAccountID = clearingFirm.setTradeAccounts();
+uint tradeAccountBalance = clearingFirm.getBalance(tradeAccountID);
+
+Assert.equal(tradeAccountBalance, 100000, "Initial balance is 100,000");
+
+}
+
+//Test TradeCount method.
+function testGetTradeCount() public
+{
+
+uint tradeCount = clearingFirm.getTradeCount();
+Assert.equal(tradeCount, 3, "Trade count is 3");
+
+}
+
 
 }
 

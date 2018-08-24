@@ -5,13 +5,21 @@ contract TradingAccount
 {
 
     uint BrokerageID;
+
+    function setBrokerageID( uint id) public returns(bool)
+    {
+    BrokerageID = id;
+    }
    
     mapping(address=>uint256) public balance;
 
-    function  getbalance() public view returns(uint Amount)
+    function  getbalance() public view returns(uint amount)
     {
-        return balance[msg.sender];
+        return address(this).balance;
     }
+
+
+
 
     function deposit(uint256 amount) public payable returns(bool success) 
     {

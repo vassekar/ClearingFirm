@@ -57,6 +57,12 @@ App = {
 
         //return ClearingFirmInstance.addTradestoClear(1234,"NDAQ",100,1000,1);
 
+        //Set couple of trading accounts
+
+        
+   
+        //ClearingFirmInstance.setTradeAccounts();
+
         return ClearingFirmInstance.getTradeCount();
 
       }).then(function (result) {
@@ -68,8 +74,8 @@ App = {
           for (j = 0; j < i; j++) {
 
             ClearingFirmInstance.getTrade(j).then(trade => {
-             // alert(trade[0]);
-              //alert(trade[1]);
+              alert(trade[2]);
+              alert(trade[3]);
 
             });
           }
@@ -81,10 +87,72 @@ App = {
 
      });
 
-    return;
+     return App.bindEvents();
   },
 
+  bindEvents: function () {
+    $(document).on('click', '#button_add', App.addTrades);
+    $(document).on('click','#button_set_trdAccounts',App.setTradeAccounts);
+   },
+
+
+addTrades: function (event) {
+  alert("I am here");
+ event.preventDefault();
+
+ alert($('input[name=ordertype]:checked', '#formIndex').val());
+
+  alert($('#StockSymbol').val());
+
+   App.contracts.ClearingFirm.deployed().then(function (instance) {
+      ClearingFirmInstance = instance;
+
+      var ClearingFirmInstance;
+
+      return  ClearingFirmInstance.addTradestoClear(1234,"NDAQ",100,1000,1);
+
+       }).then(function (result) {
+           var i = result.toNumber();
+     alert(i);
+    }).catch(function (err) {
+      alert(err.message);
+    });
+
+},
+
+setTradeAccounts: function (event) {
+  
+   App.contracts.ClearingFirm.deployed().then(function (instance) {
+      ClearingFirmInstance = instance;
+
+      alert("I am here");
+      var ClearingFirmInstance;
+      var tradeTemplate = $('#trdAccounts');
+
+      ClearingFirmInstance.setTradeAccounts().then(result =>
+        {
+
+         tradeTemplate.find('.trade-account1').text(result.toNumber());
+       });
+
+       ClearingFirmInstance.setTradeAccounts().then(result =>
+        {
+
+         tradeTemplate.find('.trade-account2').text(result.toNumber());
+       });
+
+
+       
+       }).then(function (result) {
+  
+    }).catch(function (err) {
+      alert(err.message);
+    });
+
+}
+
 };
+
 
   $(function () {
     $(window).load(function () {
@@ -93,13 +161,3 @@ App = {
   
   });
 
-
-
-  $(document).ready(function()
-  {
-  $("button_add").click(function() {
-    
-   var OrderType =document.getElementById('OrderType').value;
-       
-    });
-  });
