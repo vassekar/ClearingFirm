@@ -18,123 +18,215 @@
 
 
 <body>
-  <form id="formIndex" method="POST">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- need to bring the trades to be cleared in List. Clearing Firm can select and pick the trades and clear them-->
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <div id="tradesRow" class="row">
-      <!-- Trades LOAD HERE -->
-    </div>
+  </br>
+  <hr>
+  <b>Clearing Firm Application </b>
+  </hr>
 
-    <div id="tradeTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-default panel-pet">
-          <div class="panel-heading">
-            <h3 class="panel-title">Clearing Trade</h3>
-          </div>
-          <div class="panel-body">
-            <strong>Stock Name</strong>:
-            <span class="stock-name">MSFT</span>
-            <br/>
-            <strong>Number of Shares</strong>:
-            <span class="shares-count">100</span>
-            <br/>
-            <strong>Transaction Amount</strong>:
-            <span class="trans-amount">100,000</span>
-            <br/>
-            <strong>Order Type</strong>:
-            <span class="order-type">BUY</span>
-            <br/>
-            <strong>Trading Account</strong>:
-            <span class="trade-account">10001</span>
-            <br/>
-            <input type="checkbox" id="chk_tradetoClear" name="chk_TC" />
-          </div>
-        </div>
-      </div>
-    </div>
+  <div id="trdAccountRow" class="row">
+    <!-- Trades LOAD HERE -->
+  </div>
 
+  <div Id="trdAccounts" class="row">
+    <div class="panel-body">
+      <p>
+        Step 1: Setting up trading accounts. For demo purpose there are two accounts will be set up when you press the setTrading
+        account button twice. please wait for the metamask confirmation.
 
-    <div id="trdClear">
-
-      <input type="button" value="Select matching sell and buy order to clear" id="btnClear" />
+      </p>
+      <strong>Trading account 1</strong>:10000
+      <span class="trade-account1"></span>
+      <br/>
+      <strong>Trading account 2</strong>:10001
+      <span class="trade-account2"></span>
+      <br/>
 
     </div>
 
+  </div>
 
-    <div Id="trdAccounts" class="row">
-      <div class="panel-body">
-        <strong>Trading account 1</strong>:
-        <span class="trade-account1"></span>
-        <br/>
-        <strong>Trading account 2</strong>:
-        <span class="trade-account2"></span>
-        <br/>
+  <table>
 
-        <table>
+    <tr>
+      <td>
 
-          <tr>
-            <td>
-              <input type=button id="button_set_trdAccounts" value="Set Trading Accouts">
-
-            </td>
-
-          </tr>
-
-        </table>
+      </td>
 
 
-      </div>
-
-    </div>
+    </tr>
 
 
-    <div class=”container”>
+    <tr>
+      <td>
+        <input type=button id="button_set_trdAccounts" value="Set Trading Accounts">
 
-      <table>
+      </td>
+
+    </tr>
+
+  </table>
+
+  <div>
+
+    </br>
+    <hr>
+    <b>Step 2: Add trades </b>
+    </hr>
+
+    <p> Example: buy|NDAQ|100|10000|10001
+      <br> sell |NDAQ|100|10000|10000</p>
+  </div>
+
+  <div class=”container”>
+
+    <table>
+      <tr>
+        <td>
+          <br> </td>
+      </tr>
+      <tr>
+        <td>
+          <label for=”name” class=”col-lg-2 control-label”>Order Type: </label>
+        </td>
+        <td>
+          <input type="radio" name="ordertype" value="1" /> BUY
+          <input type="radio" name="ordertype" value="2" /> SELL </td>
+        <tr>
+          <td>
+            <label for=”name” class=”col-lg-2 control-label”>Stock Symbol: </label>
+          </td>
+          <td>
+            <input id=”StockSymbol” name="StockSymbol" type=”text”> </td>
+        </tr>
 
         <tr>
           <td>
-            <label for=”name” class=”col-lg-2 control-label”>Order Type </label>
-            <input type="radio" name="ordertype" value="1" /> BUY
-            <input type="radio" name="ordertype" value="2" /> SELL </td>
-          <tr>
-            <td>
-              <label for=”name” class=”col-lg-2 control-label”>Stock Symbol </label>
-              <input id=”StockSymbol” name="StockSymbol" type=”text”> </td>
-          </tr>
+            <label for=”name” class=”col-lg-2 control-label”> No of Stocks</label>
+          </td>
+          <td>
+            <input id="StockCount" name="StockCount" type=”text”> </td>
+        </tr>
 
-          <tr>
-            <td>
-              <label for=”name” class=”col-lg-2 control-label”> No of Stocks </label>
-              <input id=”NoofStocks” type=”text”> </td>
-          </tr>
+        <tr>
+          <td>
+            <label for=”name” class=”col-lg-2 control-label”> Amount: </label>
+          </td>
+          <td>
+            <input id=”Amount” name="Amount" type=”text”> </td>
+        </tr>
 
-          <tr>
-            <td>
-              <label for=”name” class=”col-lg-2 control-label”> Amount </label>
-              <input id=”Amount” type=”text”> </td>
-          </tr>
+        <tr>
+          <td>
+            <label for=”name” class=”col-lg-2 control-label”> Trading Account: </label>
 
-          <tr>
-            <td>
-              <label for=”name” class=”col-lg-2 control-label”> TradingAccount </label>
-              <input id=”Account” type=”text”> </td>
-          </tr>
+          </td>
+          <td>
+            <select name="Account" id="Account">
+              <option value='10000'> Account-10000</option>
+              <option value='10001'> Account-10001</option>
 
-          <tr>
-            <td>
-              <input type="button" id="button_add" value="Add Trades" /> </td>
-          </tr>
+            </select>
+          </td>
+        </tr>
 
-      </table>
+        <tr>
+          <td>
+            <br>
+            <input type="button" id="button_add" value="Add Trades" /> </br>
 
+            <p>please click browser refresh after metamask trasaction confirmed</td>
+        </tr>
+
+    </table>
+
+  </div>
+
+
+  <hr>
+  <b>Step 3: List of trades </b>
+  </hr>
+  <table>
+    <tr>
+      <td>
+        <p> Please select correspoding buy order and sell order from the list to clear the trade. UI validations are not done
+          accurately. </p>
+      </td>
+    </tr>
+  </table>
+
+  <div id="tradesRow" class="row">
+    <!-- Trades LOAD HERE -->
+  </div>
+
+  <div id="tradeTemplate" style="display: none;">
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="panel panel-default panel-pet">
+        <div class="panel-heading">
+          <h3 class="panel-title">Clearing Trade</h3>
+        </div>
+        <div class="panel-body">
+          <strong>Stock Name</strong>:
+          <span class="stock-name">MSFT</span>
+          <br/>
+          <strong>Trade ID</strong>:
+          <span class="trade-id">1</span>
+          <br/>
+          <strong>Transaction Amount</strong>:
+          <span class="trans-amount">100,000</span>
+          <br/>
+          <strong>Order Type</strong>:
+          <span class="order-type">BUY</span>
+          <br/>
+          <strong>Trading Account</strong>:
+          <span class="trade-account">10001</span>
+          <br/>
+
+          <strong>Trading Status</strong>:
+          <span class="trade-status">ACTIVE</span>
+          <br/>
+          <strong>Select trade</strong>:
+          <span class="trade-check">checkbox here</span>
+          <br/>
+
+        </div>
+      </div>
     </div>
+  </div>
 
 
-  </form>
+  <div id="trdClear">
+
+    <input type="button" value="Select sell and buy order to Clear" id="btnClearTrade" /> </br>
+
+
+
+    <div>
+
+      </br>
+      <hr>
+      <b>Step 4: Check Trading account balances </b>
+      </hr>
+  
+    </br>
+  </br>
+    <strong>Trading Account 10000</strong>
+    <span class="account1-balance">Balance</span>
+    <br/>
+
+    <strong>Trading Account 10001</strong>
+    <span class="account2-balance">Balance</span>
+    <br/>
+
+
+  </div>
+
+
+
+
 </body>
 
 </html>

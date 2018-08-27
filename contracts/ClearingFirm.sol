@@ -36,10 +36,10 @@ uint balance;
 Trade[16] public Trades;
 
 //small set of trading accounts
-TradeAccount[4] public TradeAccounts;
+TradeAccount[16] public TradeAccounts;
 
 uint nextTradeId=0;
-uint nextTradeAccountId =0;
+uint nextTradeAccountId=0;
 
 //Clearing firm creator is the only can execute deposit and withdraw from trading accounts
 function Constructor () public {
@@ -49,15 +49,25 @@ function Constructor () public {
 
 
 // Create TradeAccounts
+/* function setTradeAccounts() public returns (uint AccountId)
+{
+ TradeAccount  storage _tradeAccount = TradeAccounts[nextTradeAccountId];
+  AccountId =nextTradeAccountId+10000;
+ //set the initial deposit amount as 100,000 dollars
+ _tradeAccount.balance = 100000; 
+ _tradeAccount.accountNumber=AccountId;
+ nextTradeAccountId ++;
+ return AccountId;
+} */
+// Create TradeAccounts
 function setTradeAccounts() public returns (uint AccountId)
 {
-
 
  TradeAccount  storage _tradeAccount = TradeAccounts[nextTradeAccountId];
  _tradeAccount.accountNumber = 10000 + nextTradeAccountId;
  //set the initial deposit amount as 100,000 dollars
  _tradeAccount.balance = 100000; 
- AccountId=_tradeAccount.accountNumber;
+ AccountId = _tradeAccount.accountNumber;
  nextTradeAccountId ++;
  return AccountId;
 }
@@ -128,10 +138,12 @@ return true;
 
 
 //get all Trade fields
-  function getTrade(uint id) public view returns (uint,uint,uint,string){
+  function getTrade(uint id) public view returns
+   (uint,uint,uint,string,uint,uint)
+   {
 
    Trade storage t = Trades[id];
-   return (t.tradeId, t.status, t.amount,t.stockname);
+   return (t.tradeId, t.status, t.amount,t.stockname,t.AccountNumber,t.orderType);
   }
 
  //Get the trade counts to traverse in GUI
@@ -141,6 +153,13 @@ return true;
 
   }
 
+
+
+  function getTradeAccountCount() public view returns(uint) {
+
+   return nextTradeAccountId;
+
+  }
 //Get the balance of the tradeaccounts by accountID
 
    function  getBalance(uint AccountID) public view returns(uint Amount)
@@ -156,8 +175,29 @@ return true;
 
         }
         }
-    }
+        return 0;
+        }
+   
 
+
+//Clear the trade by only tradeids. getting other details using the id.
+function ClearTradebyIds (uint TradeId1, uint TradeId2) public payable returns (bool)
+{
+
+ Trade storage t1 = Trades[TradeId1];
+ Trade storage t2 = Trades[TradeId2];
+
+ if (t1.orderType==1)
+{
+
+return ClearTrade(t1.AccountNumber, t2.AccountNumber, TradeId1, TradeId2, t1.amount);
+}
+else
+{
+  return ClearTrade(t2.AccountNumber, t1.AccountNumber, TradeId2, TradeId1, t1.amount);
+}
+
+}
 
 /* embedding the trading account within this contract. had trouble executing the contract address. future expansion 
 

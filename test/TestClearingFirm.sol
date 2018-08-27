@@ -23,7 +23,7 @@ function testAddTtrades() public {
 
 function testgetTrade() public {
 
- var (tradeID,status,amount,stockName) = clearingFirm.getTrade(0);
+ var (tradeID,status,amount,stockName,Amount,OrderType) = clearingFirm.getTrade(0);
 
 Assert.equal(tradeID, 0, "Clearing trade id is 0."); 
 Assert.equal(amount, 10000, "Clearing trade Amount is 10000."); 
@@ -51,10 +51,14 @@ clearingFirm.ClearTrade(buyerAccountId, sellerAccountId, buyTradeId,sellTradeId,
 
 uint buyerBalance = clearingFirm.getBalance(buyerAccountId);
 uint sellerBalance = clearingFirm.getBalance(sellerAccountId);
-
+Assert.equal(buyerAccountId,10000, "buyer id is 10000");
+Assert.equal(sellerAccountId,10001, "buyer id is 10001");
   Assert.equal(buyerBalance, 90000, "buyer balance is 90,000.");
-  Assert.equal(sellerBalance, 110000, "buyer balance is 110,000.");
+  Assert.equal(sellerBalance, 110000, "seller balance is 110,000.");
 }
+
+
+
 
 
 //Test Balance method.
@@ -75,6 +79,22 @@ function testGetTradeCount() public
 uint tradeCount = clearingFirm.getTradeCount();
 Assert.equal(tradeCount, 3, "Trade count is 3");
 
+}
+
+function testclearTradebyIds() public
+{
+
+uint buyerAccountId = clearingFirm.setTradeAccounts();
+uint sellerAccountId = clearingFirm.setTradeAccounts();
+uint buyTradeId = clearingFirm.addTradestoClear(buyerAccountId,"NDAQ",10,1000,1);
+uint sellTradeId = clearingFirm.addTradestoClear(sellerAccountId,"NDAQ",10,1000,2);
+
+clearingFirm.ClearTradebyIds(buyTradeId,sellTradeId);
+
+uint buyerBalance = clearingFirm.getBalance(buyerAccountId);
+
+  Assert.equal(buyerBalance, 99000, "buyer balance is 99,000.");
+  
 }
 
 
