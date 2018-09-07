@@ -1,10 +1,6 @@
-## Data Encapsulation
+Few common design pattern is used in this project.
 
-```
-function  getTradeAccountCount() public  view  returns(uint) {
-return nextTradeAccountId;
-}
-```
-
-
-## Some more
+overflow/underflow (clear trade method)
+reentrancy
+revert pattern
+view methods versus payable
