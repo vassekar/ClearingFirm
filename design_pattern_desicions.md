@@ -1,6 +1,9 @@
 Few common design pattern is used in this project.
 
-overflow/underflow (clear trade method)
-reentrancy
-revert pattern
-view methods versus payable
+1. overflow/underflow (clear trade method)
+
+2. reentrancy
+
+3. revert pattern
+
+4. view methods versus payable
