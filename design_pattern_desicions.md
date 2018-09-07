@@ -1,4 +1,4 @@
-Few common design pattern is used in this project.
+Common design patterns  used in this project.
 
 1. overflow/underflow (clear trade method)
 
